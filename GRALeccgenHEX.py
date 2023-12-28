@@ -13,26 +13,26 @@ print("                             ELIPTIC CURVE ECC GENERATOR                 
 print("                                                                                           ")
 print("     --------------------------------------------------------------------------------      ")
 print("                                                                                           ")
+print("            awk -F '  ' '{print $1}' point.txt > pointX.txt                                                                               ")
+print("                                                                                           ")
+print("            awk -F '  ' '{print $2}' point.txt > pointY.txt                                                                               ")
 print("                                                                                           ")
 print("                                                                                           ")
 print("                                                                                           ")
+print("                                                                                           ")
 
-
-
-
-
-f = open("output3.txt", "a")
+f = open("point.txt", "a")
 
 def printPoints(name, a, b, p, G, scale):
     print(name, file=f)
     c = ecc.Curve(a, b, p, G)
-    for n in tqdm(range(1, 600), desc=f"{name} calculation"):
+    for n in tqdm(range(1, 50000), desc=f"calculation"):
         res = c.power(G, n)
         x, y = res
-        print(n, "", "x:", hex(x)[2:], "y:", hex(y)[2:], file=f)
+        print("", hex(x)[2:], "", hex(y)[2:], file=f)
+         #print("x:", hex(x)[2:], "y:", hex(y)[2:], file=f)
     res = c.power(G, scale)
-    x, y = res
-    print(scale, "", "x:", hex(x)[2:], "y:", hex(y)[2:], file=f)
+
 
 scale = 2
 if len(sys.argv) > 1:
@@ -46,6 +46,6 @@ p = 1157920892373161954235709850086879078532699846656405640394575840079088346716
 #G = (46833799212576611471711417854818141128240043280360231002189938627535641370294, 33454781559405909841731692443380420218121109572881027288991311028992835919199)
 
 
-printPoints("\nsecp256k1", a, b, p, G, scale)
+printPoints("", a, b, p, G, scale)
 f.close()
 
